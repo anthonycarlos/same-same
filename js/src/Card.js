@@ -1,5 +1,5 @@
 Card = Em.Object.extend({
-  value: "img/01.png",
+  value: undefined,
   isFaceUp: false,
   toggle: function() {
     if (this.get('isFaceUp')) {
@@ -8,11 +8,15 @@ Card = Em.Object.extend({
       this.set('isFaceUp', true);
     }
   },
+  faceDownUrl: "img/face-down.png",
+  faceUpUrl: function() {
+    return "img/" + this.get('value') + ".png"
+  }.property('value'),
   show: function() {
     if (this.get('isFaceUp')) {
-      return this.get('value');
+      return this.get('faceUpUrl');
     } else {
-      return "img/face-down.png";
+      return this.get('faceDownUrl');
     }
   }.property('value', 'isFaceUp')
 });
